@@ -1,0 +1,37 @@
+###
+GET http://localhost:9001/spring-kotlin?requestId=1695806272883
+
+###
+GET http://localhost:9002/spring-reactive?requestId=1695806272883
+
+###
+GET http://localhost:9003/spring-tomcat?requestId=1695806272883
+
+
+###
+
+# gvm install go1.20
+# gvm use go1.20
+
+# echo "GET http://localhost:9001/spring-kotlin?requestId=1695806272883" | ./vegeta.exe -cpus=2 attack -name=spring-kotlin-10qps -duration=30s -rate=10 > spring-kotlin-results.10qps.bin
+# echo "GET http://localhost:9001/spring-kotlin?requestId=1695806272883" | ./vegeta.exe -cpus=2 attack -name=spring-kotlin-30qps -duration=30s -rate=30 > spring-kotlin-results.30qps.bin
+# ./vegeta.exe plot spring-kotlin-results.10qps.bin spring-kotlin-results.30qps.bin > kotlin-plot.html
+# cat spring-kotlin-results.30qps.bin | ./vegeta.exe report -type='hist[0,2ms,4ms,6ms]'
+
+# echo "GET http://localhost:9002/spring-reactive?requestId=1695806272883" | ./vegeta.exe -cpus=2 attack -name=spring-reactive-50qps -duration=30s -rate=50 > spring-reactive-results.50qps.bin
+# echo "GET http://localhost:9002/spring-reactive?requestId=1695806272883" | ./vegeta.exe -cpus=2 attack -name=spring-reactive-100qps -duration=30s -rate=100 > spring-reactive-results.100qps.bin
+# ./vegeta.exe plot spring-reactive-results.50qps.bin spring-reactive-results.100qps.bin > reactive-plot.html
+
+# echo "GET http://localhost:9003/spring-tomcat?requestId=1695806272883" | ./vegeta.exe -cpus=2 attack -name=spring-tomcat-10qps -duration=30s -rate=10 > spring-tomcat-results.10qps.bin
+# echo "GET http://localhost:9003/spring-tomcat?requestId=1695806272883" | ./vegeta.exe -cpus=2 attack -name=spring-tomcat-30qps -duration=30s -rate=30 > spring-tomcat-results.30qps.bin
+# ./vegeta.exe plot spring-tomcat-results.10qps.bin spring-tomcat-results.30qps.bin > tomcat-plot.html
+
+
+# ./vegeta.exe plot spring-tomcat-results.10qps.bin spring-tomcat-results.30qps.bin spring-kotlin-results.10qps.bin spring-kotlin-results.30qps.bin spring-reactive-results.10qps.bin spring-reactive-results.30qps.bin > all-plot.html
+
+
+# echo "GET http://localhost:9002/spring-reactive?requestId=1695983983382" | ./vegeta.exe -cpus=2 attack -duration=30s -rate=500 | tee results.bin | ./vegeta.exe report
+# echo "GET http://localhost:9001/spring-kotlin?requestId=1695983983382" | ./vegeta.exe -cpus=2 attack -duration=30s | tee results.bin | ./vegeta.exe plot > plot.html
+
+# kotlin & tomcat = 200 qps
+# reactive = 3300 qps
