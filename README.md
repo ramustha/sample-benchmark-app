@@ -17,7 +17,7 @@
 * 16.0 GB (15.8 GB usable)
 
 ### Benchmark Tools
-* [Vegeta](https://github.com/tsenart/vegeta) (-cpus=2 -duration=30s)
+* [Vegeta](https://github.com/tsenart/vegeta) (-cpus=2 -duration=30s) with delay 1 seconds each request
 
 ### Report
 * **spring boot kotlin (Coroutines)**
