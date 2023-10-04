@@ -1,5 +1,7 @@
 package com.example.springkotlin
 
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -22,17 +24,17 @@ class SampleController {
     private val LOG = LoggerFactory.getLogger("SampleController")
 
     @GetMapping("/spring-kotlin", produces = [MediaType.APPLICATION_JSON_VALUE])
-    fun getRequest(
+    suspend fun getRequest(
         @RequestParam("requestId") requestId: String,
         @RequestParam("delay", required = false) delay: Long?
-    ): ResponseEntity<String> {
+    ): ResponseEntity<String> = coroutineScope {
         simulateDelay(delay)
-        return ResponseEntity.ok(requestId + System.nanoTime())
+        ResponseEntity.ok(requestId + System.nanoTime())
     }
 
-    fun simulateDelay(millis: Long?) {
+    suspend fun simulateDelay(millis: Long?) {
         val delayMillis = millis ?: 1000
         LOG.info("simulateDelay = $delayMillis, thread = ${Thread.currentThread()}")
-        Thread.sleep(delayMillis)
+        delay(delayMillis)
     }
 }

@@ -4,6 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
+import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.task.AsyncTaskExecutor;
+import org.springframework.core.task.support.TaskExecutorAdapter;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
 
 @SpringBootApplication
 public class SpringTomcatApplication {
@@ -19,7 +25,17 @@ public class SpringTomcatApplication {
     SpringApplication.run(SpringTomcatApplication.class, args);
   }
 
+  @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)
+  public AsyncTaskExecutor asyncTaskExecutor() {
+    return new TaskExecutorAdapter(Executors.newVirtualThreadPerTaskExecutor());
+  }
+
+  @Bean
+  public TomcatProtocolHandlerCustomizer<?> protocolHandlerVirtualThreadExecutorCustomizer() {
+    return protocolHandler -> protocolHandler.setExecutor(Executors.newVirtualThreadPerTaskExecutor());
+  }
 }
+
 
 @RestController
 class SampleController {
