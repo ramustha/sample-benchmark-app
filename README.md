@@ -197,3 +197,32 @@ Success       [ratio]                           96.96%
 Status Codes  [code:count]                      0:862  200:27471
 ```
 ![result-2000qps.png](benchmark/tomcat-default-2000qps.png)
+
+* **spring boot tomcat**
+  * server.tomcat.threads.max=3000
+  * server.tomcat.threads.min-spare=50
+```text
+./Attack -cpus=2 -duration=30s -rate=3000
+
+Requests      [total, rate, throughput]         89996, 2998.73, 2766.10
+Duration      [total, attack, wait]             32.452s, 30.011s, 2.44s
+Latencies     [min, mean, 50, 90, 95, 99, max]  512.6µs, 2.055s, 2.141s, 2.385s, 2.459s, 2.551s, 2.676s
+Bytes In      [total, mean]                     1795280, 19.95
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           99.74%
+Status Codes  [code:count]                      0:232  200:89764
+```
+![result-3000qps.png](benchmark/tomcat-default-3000qps.png)
+```text
+./Attack -cpus=2 -duration=30s -rate=3500
+
+Attack http://localhost:9003/spring-tomcat?requestId=tomcat with 3500qps
+Requests      [total, rate, throughput]         43301, 1446.11, 720.73
+Duration      [total, attack, wait]             59.914s, 29.943s, 29.971s
+Latencies     [min, mean, 50, 90, 95, 99, max]  1.08ms, 7.479s, 4.408s, 21.395s, 21.677s, 23.825s, 30.017s
+Bytes In      [total, mean]                     863640, 19.95
+Bytes Out     [total, mean]                     0, 0.00
+Success       [ratio]                           99.73%
+Status Codes  [code:count]                      0:119  200:43182
+```
+![result-3500qps.png](benchmark/tomcat-default-3500qps.png)
