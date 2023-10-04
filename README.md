@@ -108,18 +108,6 @@ Status Codes  [code:count]                      200:83926
 ```
 ![result-3500qps.png](benchmark/reactive-3500qps.png)
 ```text
-./Attack -cpus=2 -duration=30s -rate=3500
-
-Requests      [total, rate, throughput]         83926, 2728.87, 2437.67
-Duration      [total, attack, wait]             34.429s, 30.755s, 3.674s
-Latencies     [min, mean, 50, 90, 95, 99, max]  995.29ms, 1.791s, 1.021s, 4.332s, 6.431s, 7.798s, 10.406s
-Bytes In      [total, mean]                     1846372, 22.00
-Bytes Out     [total, mean]                     0, 0.00
-Success       [ratio]                           100.00%
-Status Codes  [code:count]                      200:83926
-```
-![result-3500qps.png](benchmark/reactive-3500qps.png)
-```text
 ./Attack -cpus=2 -duration=30s -rate=4000
 
 Requests      [total, rate, throughput]         29336, 944.63, 900.56
